@@ -25,4 +25,18 @@ public class FuncionarioController {
         return this.funcionarioService.getFuncionario(idFuncionario);
     }
 
+    @PostMapping("/funcionarios")
+    public Funcionario salvar(@Valid @RequestBody FuncionarioDTO dto) {
+    Funcionario funcionario = this.funcionarioService.salvar(dto);
+    return funcionario;
+    }
+    @PutMapping("/funcionarios/{idFuncionario}")
+    public Funcionario atualizar(@PathVariable Integer idFuncionario, @Valid @RequestBody FuncionarioDTO dto){
+      Funcionario atualizado = this.funcionarioService.atualizar(idFuncionario, dto)  ;
+      return atualizado;
+    }
+
+    @DeleteMapping("/funcionarios/{idFuncionario}")
+    public void deletar(@PathVariable Integer idFuncionario) {
+        this.funcionarioService.deletar(idFuncionario);}
 }
