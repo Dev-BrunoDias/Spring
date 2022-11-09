@@ -4,6 +4,7 @@ import org.soulcodeacademy.helpr.domain.Cargo;
 import org.soulcodeacademy.helpr.domain.Cliente;
 import org.soulcodeacademy.helpr.domain.Funcionario;
 import org.soulcodeacademy.helpr.repositories.CargoRepository;
+import org.soulcodeacademy.helpr.repositories.ClienteRepository;
 import org.soulcodeacademy.helpr.repositories.FuncionarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ public class PopulateService {
     private FuncionarioRepository funcionarioRepository;
 
     @Autowired
-    private CargoRepository clienteRepository;
+    private ClienteRepository clienteRepository;
 
     public void populate() {
         Cargo c1 = new Cargo(null, "Diretor Geral", "Gerenciar a empresa", 30000.0);
