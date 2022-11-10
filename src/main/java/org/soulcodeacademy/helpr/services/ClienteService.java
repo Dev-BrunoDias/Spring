@@ -16,8 +16,6 @@ public class ClienteService {
     @Autowired
     public ClienteRepository clienteRepository;
 
-    @Autowired
-    private CargoService cargoService;
 
     public List<Cliente> listar() {
         return this.clienteRepository.findAll();
@@ -37,8 +35,8 @@ public class ClienteService {
 
 
         Cliente novoCliente = new Cliente(null, dto.getNome(), dto.getEmail(), dto.getCpf(), dto.getSenha(), dto.getTelefone());
-        this.clienteRepository.save(novoCliente);
-        return novoCliente;
+        return this.clienteRepository.save(novoCliente);
+
     }
 
     public Cliente atualizar(Integer idCliente, ClienteDTO dto) {

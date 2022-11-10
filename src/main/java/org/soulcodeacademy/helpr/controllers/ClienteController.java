@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+
 @RestController
 public class ClienteController {
 
@@ -18,15 +19,15 @@ public class ClienteController {
     public List<Cliente> listar(){
         return this.clienteService.listar();
     }
-    @GetMapping("/funcionarios/{idCliente}")
+    @GetMapping("/clientes/{idCliente}")
     public Cliente getCliente(@PathVariable Integer idCliente) {
+
         return this.clienteService.getCliente(idCliente);
     }
 
     @PostMapping("/clientes")
     public Cliente salvar(@Valid @RequestBody ClienteDTO dto) {
-        Cliente cliente = this.clienteService.salvar(dto);
-        return cliente;
+        return this.clienteService.salvar(dto);
     }
 
     @PutMapping("/clientes/{idCliente}")
