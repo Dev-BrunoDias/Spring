@@ -26,7 +26,8 @@ public class PopulateService {
         Cargo c3 = new Cargo(null, " Técnico Geral", "Resolve os chamados urgentes", 12000.0);
         Funcionario f1 = new Funcionario(null, "Renato Pereira", "renato.pereira@gmail.com", "55627145587", "12345", null, c1);
         Funcionario f2 = new Funcionario(null, "Victor Icoma", "victor.icoma@gmail.com", "51127383671", "12345", null, c2);
-        Cliente cl1 = new Cliente(null,"Carolos Roberto", "carlos.roberto@gmail.com", "09511543732", "12345", "989312002",c1 );
+        Cliente cliente1 = new Cliente(null, "Fernando Silva", "fernando.silva@gmail.com", "39823783209", "12345", "99-13456789");
+        Cliente cliente2 = new Cliente(null, "Luiz Silva", "luiz.silva@gmail.com", "41181155819", "12345", "99-65748390");
         // vamos persistir as entidades = salvar no banco
         this.cargoRepository.save(c1); // INSERT INTO
         this.cargoRepository.save(c2);
@@ -35,7 +36,8 @@ public class PopulateService {
         this.funcionarioRepository.save(f1);
         this.funcionarioRepository.save(f2);
 
-        this.clienteRepository.save(cl1);
+        this.clienteRepository.save(cliente1);
+        this.clienteRepository.save(cliente2);
     }
 }
 

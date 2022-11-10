@@ -15,10 +15,10 @@ public class Cliente extends Usuario {
 
     public Cliente() {}
 
-    public Cliente(Integer id, String nome, String email, String cpf, String senha, String telefone, Cargo cargo) {
+    public Cliente(Integer id, String nome, String email, String cpf, String senha, String telefone) {
         super(id, nome, email, cpf, senha, Perfil.CLIENTE);
         this.telefone = telefone;
-        this.cargo = cargo;
+
     }
 
 
@@ -31,11 +31,5 @@ public class Cliente extends Usuario {
         this.telefone = telefone;
     }
 
-    public Cargo getCargo() {
-        return cargo;
-    }
 
-    public void setCargo(Cargo cargo) {
-        this.cargo = cargo;
-    }
 }

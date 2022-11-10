@@ -1,7 +1,6 @@
 package org.soulcodeacademy.helpr.services;
 
-import net.bytebuddy.implementation.auxiliary.AuxiliaryType;
-import org.soulcodeacademy.helpr.domain.Cargo;
+
 import org.soulcodeacademy.helpr.domain.Cliente;
 import org.soulcodeacademy.helpr.domain.dto.ClienteDTO;
 import org.soulcodeacademy.helpr.repositories.ClienteRepository;
@@ -35,23 +34,23 @@ public class ClienteService {
     }
 
     public Cliente salvar(ClienteDTO dto){
-        Cargo cargo = this.cargoService.getCargo(dto.getIdCargo());
 
-        Cliente cliente = new Cliente(null, dto.getNome(), dto.getEmail(), dto.getCpf(), dto.getSenha(), dto.getTelefone(), cargo);
-        Cliente salvo = this.clienteRepository.save(cliente);
-        return salvo;
+
+        Cliente novoCliente = new Cliente(null, dto.getNome(), dto.getEmail(), dto.getCpf(), dto.getSenha(), dto.getTelefone());
+        this.clienteRepository.save(novoCliente);
+        return novoCliente;
     }
 
     public Cliente atualizar(Integer idCliente, ClienteDTO dto) {
         Cliente clienteAtual = this.getCliente(idCliente);
-        Cargo cargo = this.cargoService.getCargo(dto.getIdCargo());
+
 
         clienteAtual.setNome(dto.getNome());
         clienteAtual.setEmail(dto.getEmail());
         clienteAtual.setCpf(dto.getCpf());
-        clienteAtual.setSenha(dto.getSenha());
         clienteAtual.setTelefone(dto.getTelefone());
-        clienteAtual.setCargo(cargo);
+        clienteAtual.setSenha(dto.getSenha());
+
 
         Cliente atualizado = this.clienteRepository.save(clienteAtual);
         return atualizado;
