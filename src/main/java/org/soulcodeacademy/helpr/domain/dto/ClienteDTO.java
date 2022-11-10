@@ -6,8 +6,6 @@ public class ClienteDTO extends UsuarioDTO{
 
     private String telefone;
 
-    @NotNull
-    private  Integer idCargo;
 
     public String getTelefone() {
         return telefone;
@@ -17,11 +15,4 @@ public class ClienteDTO extends UsuarioDTO{
         this.telefone = telefone;
     }
 
-    public Integer getIdCargo() {
-        return idCargo;
-    }
-
-    public void setIdCargo(Integer idCargo) {
-        this.idCargo = idCargo;
-    }
 }
