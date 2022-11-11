@@ -46,13 +46,17 @@ public class ClienteService {
         clienteAtual.setNome(dto.getNome());
         clienteAtual.setEmail(dto.getEmail());
         clienteAtual.setCpf(dto.getCpf());
-        clienteAtual.setTelefone(dto.getTelefone());
         clienteAtual.setSenha(dto.getSenha());
+        clienteAtual.setTelefone(dto.getTelefone());
 
 
-        Cliente atualizado = this.clienteRepository.save(clienteAtual);
-        return atualizado;
+        return this.clienteRepository.save(clienteAtual);
+
     }
+
+    // Quando usar entidade e dto?
+    // Entidade = retorno dos dados
+    // DTO = entrada de dados
 
     public void deletar( Integer idCliente) {
         Cliente cliente = this.getCliente(idCliente);
