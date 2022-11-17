@@ -1,15 +1,16 @@
 package org.soulcodeacademy.helpr.services;
 
-import jdk.dynalink.linker.LinkerServices;
 import org.soulcodeacademy.helpr.domain.Chamado;
 import org.soulcodeacademy.helpr.domain.Cliente;
+import org.soulcodeacademy.helpr.domain.Funcionario;
 import org.soulcodeacademy.helpr.domain.dto.ChamadoDTO;
+import org.soulcodeacademy.helpr.domain.enums.StatusChamado;
 import org.soulcodeacademy.helpr.repositories.ChamadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ChamadoService {
@@ -19,11 +20,15 @@ public class ChamadoService {
     @Autowired
     private ClienteService clienteService;
 
+    @Autowired
+    private FuncionarioService funcionarioService;
+
     public List<Chamado> listarChamados() {
         return this.chamadoRepository.findAll();
     }
 
     public Chamado getChamado(Integer idChamado) {
+        // Caso não encontre o chamado, lança a exceção.
         return this.chamadoRepository.findById(idChamado)
                 .orElseThrow(() -> new RuntimeException("Chamado não encontrado"));
     }
@@ -39,10 +44,36 @@ public class ChamadoService {
 
     public Chamado atualizar(Integer idChamado, ChamadoDTO dto) {
         Chamado chamadoAtual = this.getChamado(idChamado);
-
+        Cliente cliente = this.clienteService.getCliente(dto.getIdCliente());
         chamadoAtual.setTitulo(dto.getTitulo());
         chamadoAtual.setDescricao(dto.getDescricao());
-        Chamado atualizado = this.chamadoRepository.save(chamadoAtual);
-        return atualizado;
+        chamadoAtual.setCliente(cliente);
+
+        if (dto.getIdFuncionario() == null) {
+            throw new RuntimeException("idFuncionario obrigatório");
+        } else {
+            Funcionario funcionario = this.funcionarioService.getFuncionario(dto.getIdFuncionario());
+
+            switch (dto.getStatus()) {
+                case RECEBIDO -> {
+                    chamadoAtual.setStatus(StatusChamado.RECEBIDO);
+                    chamadoAtual.setFuncionario(null);
+                    chamadoAtual.setDataFechamento(null);
+                }
+                case ATRIBUIDO -> {
+                    chamadoAtual.setStatus(StatusChamado.ATRIBUIDO);
+                    chamadoAtual.setFuncionario(funcionario);
+                    chamadoAtual.setDataFechamento(null);
+                }
+                case CONCLUIDO -> {
+                    chamadoAtual.setStatus(StatusChamado.CONCLUIDO);
+                    chamadoAtual.setFuncionario(funcionario);
+                    chamadoAtual.setDataFechamento(LocalDate.now());
+                }
+            }
+        }
+
+        return this.chamadoRepository.save(chamadoAtual);
     }
+
 }

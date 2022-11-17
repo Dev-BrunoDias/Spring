@@ -31,8 +31,8 @@ public class ChamadoController {
     }
 
     @PutMapping("/chamados/{idChamado}")
-    public  Chamado atualizar(@PathVariable Integer idChamado, @Valid @RequestBody ChamadoDTO chamado) {
-        Chamado atualizado = this.chamadoService.atualizar(idChamado, chamado);
-        return atualizado;
+    public  Chamado atualizar(@PathVariable Integer idChamado, @Valid @RequestBody ChamadoDTO dto) {
+        return this.chamadoService.atualizar(idChamado, dto);
+
     }
 }
