@@ -2,6 +2,7 @@ package org.soulcodeacademy.helpr.controllers;
 
 import org.soulcodeacademy.helpr.domain.Chamado;
 import org.soulcodeacademy.helpr.domain.dto.ChamadoDTO;
+import org.soulcodeacademy.helpr.domain.enums.StatusChamado;
 import org.soulcodeacademy.helpr.services.ChamadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,7 @@ public class ChamadoController {
 
     @GetMapping("/chamados")
     public List<Chamado> listarChamados() {
-        return  this.chamadoService.listarChamados();
+        return this.chamadoService.listarChamados();
 
     }
 
@@ -31,8 +32,30 @@ public class ChamadoController {
     }
 
     @PutMapping("/chamados/{idChamado}")
-    public  Chamado atualizar(@PathVariable Integer idChamado, @Valid @RequestBody ChamadoDTO dto) {
+    public Chamado atualizar(@PathVariable Integer idChamado, @Valid @RequestBody ChamadoDTO dto) {
         return this.chamadoService.atualizar(idChamado, dto);
 
     }
+
+    //Listar por clientes
+    @GetMapping("/chamados/clientes/{idCliente}")
+    public List<Chamado> listarPorCliente(@PathVariable Integer idCliente) {
+        return this.chamadoService.listarPorCliente(idCliente);
+    }
+    // Listar por Funcionario
+    @GetMapping("/chamados/funcionarios/{idFuncionario}")
+    public List<Chamado> listarPorFuncionario(@PathVariable Integer idFuncionario) {
+        return this.chamadoService.listarPorFuncionario(idFuncionario);
+    }
+    //Calculadora
+    @GetMapping("/soma")
+    public Integer soma(@RequestParam Integer numero1, @RequestParam Integer numero2) {
+        return numero1 + numero2;
+    }
+    // Listar por status
+    @GetMapping("/chamados/status") // /chamados/status?status=ATRIBUIDO
+    public List<Chamado> listarPorStatus(@RequestParam StatusChamado status) {
+        return this.chamadoService.listarPorStatus(status);
+    }
+    // Listar por data (intervalo)
 }
