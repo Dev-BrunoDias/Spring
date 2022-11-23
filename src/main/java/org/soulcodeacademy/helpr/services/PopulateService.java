@@ -4,12 +4,14 @@ import org.soulcodeacademy.helpr.domain.Cargo;
 import org.soulcodeacademy.helpr.domain.Chamado;
 import org.soulcodeacademy.helpr.domain.Cliente;
 import org.soulcodeacademy.helpr.domain.Funcionario;
+import org.soulcodeacademy.helpr.domain.enums.Perfil;
 import org.soulcodeacademy.helpr.domain.enums.StatusChamado;
 import org.soulcodeacademy.helpr.repositories.CargoRepository;
 import org.soulcodeacademy.helpr.repositories.ChamadoRepository;
 import org.soulcodeacademy.helpr.repositories.ClienteRepository;
 import org.soulcodeacademy.helpr.repositories.FuncionarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,16 +30,20 @@ public class PopulateService {
     @Autowired
     private ChamadoRepository chamadoRepository;
 
+    @Autowired
+    private PasswordEncoder encoder;
+
     public void populate() {
         Cargo c1 = new Cargo(null, "Diretor Geral", "Gerenciar a empresa", 30000.0);
         Cargo c2 = new Cargo(null, "Diretor de setor", "Gerencia um setor da empresa", 18000.0);
         Cargo c3 = new Cargo(null, " Técnico Geral", "Resolve os chamados urgentes", 12000.0);
 
-        Funcionario f1 = new Funcionario(null, "Renato Pereira", "renato.pereira@gmail.com", "55627145587", "12345", null, c1);
-        Funcionario f2 = new Funcionario(null, "Victor Icoma", "victor.icoma@gmail.com", "51127383671", "12345", null, c2);
+        Funcionario f1 = new Funcionario(null, "Renato Pereira", "renato.pereira@gmail.com", "55627145587", encoder.encode("12345"), null, c1);
+        f1.setPerfil(Perfil.ADMIN);
+        Funcionario f2 = new Funcionario(null, "Victor Icoma", "victor.icoma@gmail.com", "51127383671", encoder.encode("12345"), null, c2);
 
-        Cliente cliente1 = new Cliente(null, "Fernando Silva", "fernando.silva@gmail.com", "39823783209", "12345", "99-13456789");
-        Cliente cliente2 = new Cliente(null, "Luiz Silva", "luiz.silva@gmail.com", "41181155819", "12345", "99-65748390");
+        Cliente cliente1 = new Cliente(null, "Fernando Silva", "fernando.silva@gmail.com", "39823783209", encoder.encode("12345"), "99-13456789");
+        Cliente cliente2 = new Cliente(null, "Luiz Silva", "luiz.silva@gmail.com", "41181155819", encoder.encode("12345"), "99-65748390");
 
         Chamado ch1 = new Chamado(null, "Primeiro chamado do sistema", "Revisar as entidades criadas");
         ch1.setCliente(cliente1);
