@@ -4,6 +4,7 @@ import org.soulcodeacademy.helpr.domain.Cargo;
 import org.soulcodeacademy.helpr.domain.Funcionario;
 import org.soulcodeacademy.helpr.domain.dto.FuncionarioDTO;
 import org.soulcodeacademy.helpr.repositories.FuncionarioRepository;
+import org.soulcodeacademy.helpr.services.errors.RecursoNãoEncontradoError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +33,7 @@ public class FuncionarioService {
         Optional<Funcionario> funcionario = this.funcionarioRepository.findById(idFuncionario);
 
         if(funcionario.isEmpty()) {
-            throw  new RuntimeException("O funcionário não foi encontrado");
+            throw  new RecursoNãoEncontradoError("O funcionário não foi encontrado");
         }else {
             return  funcionario.get();
         }
